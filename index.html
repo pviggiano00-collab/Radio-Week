@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📻 Radio Week</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pastel-pink: #ffc4d6;
+            --pastel-blue: #b4d4ff;
+            --pastel-purple: #d4b5ff;
+            --pastel-yellow: #fff4b4;
+            --pastel-mint: #b4ffdb;
+            --pastel-peach: #ffd4b4;
+            --soft-white: #fefefe;
+            --soft-bg: #f5f0ff;
+            --text-dark: #6b5b8c;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: var(--soft-bg);
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(180, 181, 255, 0.05) 10px, rgba(180, 181, 255, 0.05) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255, 196, 214, 0.05) 10px, rgba(255, 196, 214, 0.05) 20px);
+            min-height: 100vh;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        /* Floating pixel clouds */
+        .pixel-cloud {
+            position: fixed;
+            width: 80px;
+            height: 50px;
+            background: 
+                linear-gradient(var(--pastel-blue) 10px, transparent 10px),
+                linear-gradient(90deg, var(--pastel-blue) 10px, transparent 10px);
+            background-size: 10px 10px;
+            opacity: 0.3;
+            animation: floatCloud 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .cloud-1 {
+            top: 10%;
+            animation-delay: 0s;
+        }
+
+        .cloud-2 {
+            top: 60%;
+            animation-delay: 7s;
+        }
+
+        .cloud-3 {
+            top: 35%;
+            animation-delay: 14s;
+        }
+
+        @keyframes floatCloud {
+            0% { left: -100px; }
+            100% { left: calc(100% + 100px); }
+        }
+
+        /* Pixel stars */
+        .pixel-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .pixel-star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--pastel-yellow);
+            box-shadow: 0 0 10px var(--pastel-yellow);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 4px solid var(--pastel-pink);
+            box-shadow: 
+                8px 8px 0px var(--pastel-purple),
+                0 10px 40px rgba(180, 181, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pixel border decoration - REMOVED */
+
+        .header {
+            background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--pastel-purple) 50%, var(--pastel-blue) 100%);
+            padding: 30px;
+            border-bottom: 4px solid var(--pastel-purple);
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--soft-white);
+            text-shadow: 
+                3px 3px 0px var(--pastel-purple),
+                5px 5px 0px rgba(107, 91, 140, 0.3);
+            animation: titleBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .radio-icon {
+            font-size: 28px;
+            animation: radioWave 1.5s ease-in-out infinite;
+        }
+
+        @keyframes radioWave {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: 3px solid var(--text-dark);
+            border-radius: 0;
+            font-size: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.1s;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--text-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            box-shadow: 2px 2px 0px var(--text-dark);
+            transform: translate(2px, 2px);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-save {
+            background: var(--pastel-mint);
+            color: var(--text-dark);
+        }
+
+        .btn-save:hover {
+            background: #a0f5c9;
+        }
+
+        .btn-today {
+            background: var(--pastel-yellow);
+            color: var(--text-dark);
+        }
+
+        .btn-today:hover {
+            background: #ffe89f;
+        }
+
+        .week-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-btn {
+            background: var(--pastel-peach);
+            color: var(--text-dark);
+            border: 3px solid var(--text-dark);
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 4px 4px 0px var(--text-dark);
+            transition: all 0.1s;
+            font-weight: bold;
+        }
+
+        .nav-btn:active {
+            box-shadow: 2px 2px 0px var(--text-dark);
+            transform: translate(2px, 2px);
+        }
+
+        .nav-btn:hover {
+            background: #ffbe9f;
+        }
+
+        .week-display {
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--soft-white);
+            text-shadow: 2px 2px 0px var(--pastel-purple);
+            letter-spacing: 1px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            padding: 20px;
+            background: var(--soft-white);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+        }
+
+        thead th {
+            background: var(--pastel-blue);
+            font-weight: bold;
+            color: var(--text-dark);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 8px;
+            border: 3px solid var(--text-dark);
+            box-shadow: 3px 3px 0px var(--text-dark);
+        }
+
+        .period-cell {
+            background: var(--pastel-purple);
+            font-weight: bold;
+            color: var(--text-dark);
+            width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 9px;
+            border: 3px solid var(--text-dark);
+            box-shadow: 3px 3px 0px var(--text-dark);
+        }
+
+        .period-icon {
+            font-size: 14px;
+            margin-right: 6px;
+        }
+
+        .day-header {
+            min-width: 130px;
+        }
+
+        .day-header.today {
+            background: var(--pastel-pink);
+            border: 3px solid var(--text-dark);
+            box-shadow: 
+                3px 3px 0px var(--text-dark),
+                0 0 20px var(--pastel-pink);
+            animation: todayGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes todayGlow {
+            0%, 100% { box-shadow: 3px 3px 0px var(--text-dark); }
+            50% { box-shadow: 3px 3px 0px var(--text-dark), 0 0 25px var(--pastel-pink); }
+        }
+
+        .day-name {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .day-date {
+            font-size: 10px;
+            opacity: 1;
+            font-weight: bold;
+            margin-top: 4px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .cell-content {
+            min-height: 100px;
+            cursor: text;
+            transition: all 0.2s;
+            background: #fafafa;
+            border: 3px solid #e0d5f0;
+            box-shadow: inset 0 0 0 0 var(--pastel-mint);
+            position: relative;
+        }
+
+        .cell-content:hover {
+            border-color: var(--pastel-purple);
+            box-shadow: 
+                inset 0 0 20px rgba(212, 181, 255, 0.2),
+                3px 3px 0px var(--pastel-purple);
+            transform: translate(-1px, -1px);
+        }
+
+        .cell-content.today {
+            background: #fff5f8;
+            border-color: var(--pastel-pink);
+        }
+
+        .cell-content.today:hover {
+            box-shadow: 
+                inset 0 0 20px rgba(255, 196, 214, 0.3),
+                3px 3px 0px var(--pastel-pink);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border: 3px solid var(--pastel-purple);
+            padding: 10px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            background: var(--soft-white);
+            color: var(--text-dark);
+            box-shadow: 
+                3px 3px 0px var(--text-dark),
+                inset 0 0 10px rgba(212, 181, 255, 0.1);
+        }
+
+        textarea::placeholder {
+            color: rgba(107, 91, 140, 0.4);
+        }
+
+        .placeholder {
+            color: rgba(107, 91, 140, 0.3);
+            font-style: italic;
+            font-size: 11px;
+            font-family: 'VT323', monospace;
+        }
+
+        .cell-text {
+            white-space: pre-wrap;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            font-family: 'VT323', monospace;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--pastel-mint) 0%, var(--pastel-blue) 100%);
+            padding: 20px 30px;
+            border-top: 4px solid var(--pastel-purple);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8px;
+            color: var(--text-dark);
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .pixel-heart {
+            font-size: 14px;
+            animation: starShine 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes starShine {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 2px var(--pastel-yellow));
+            }
+            50% { 
+                transform: scale(1.3);
+                filter: drop-shadow(0 0 8px var(--pastel-yellow));
+            }
+        }
+
+        .saved-indicator {
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 8px;
+            text-shadow: 0 0 5px var(--pastel-mint);
+        }
+
+        .saved-indicator.show {
+            opacity: 1;
+            animation: savePopup 0.5s ease-in-out;
+        }
+
+        @keyframes savePopup {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Pixel art decorations - REMOVED */
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--pastel-purple);
+            border: 2px solid var(--text-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pastel-pink);
+            border: 2px solid var(--text-dark);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--pastel-blue);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 14px;
+            }
+            
+            .week-display {
+                font-size: 9px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pixel-cloud cloud-1"></div>
+    <div class="pixel-cloud cloud-2"></div>
+    <div class="pixel-cloud cloud-3"></div>
+    
+    <div class="pixel-stars">
+        <div class="pixel-star" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+        <div class="pixel-star" style="top: 40%; left: 75%; animation-delay: 1s;"></div>
+        <div class="pixel-star" style="top: 70%; left: 15%; animation-delay: 2s;"></div>
+        <div class="pixel-star" style="top: 25%; left: 85%; animation-delay: 1.5s;"></div>
+        <div class="pixel-star" style="top: 80%; left: 60%; animation-delay: 0.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="header-title">
+                    <span class="radio-icon">📻</span>
+                    <span>RADIO WEEK</span>
+                </div>
+                <div class="header-buttons">
+                    <button class="btn btn-save" onclick="savePlanner()"><span>💾 SAVE</span></button>
+                    <button class="btn btn-today" onclick="goToToday()"><span>⭐ TODAY</span></button>
+                </div>
+            </div>
+            <div class="week-nav">
+                <button class="nav-btn" onclick="previousWeek()">◀</button>
+                <div class="week-display" id="weekDisplay"></div>
+                <button class="nav-btn" onclick="nextWeek()">▶</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="plannerTable">
+                <thead>
+                    <tr id="tableHeader"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <div class="branding">
+                <span class="pixel-heart">⭐</span>
+                <span>POWERED BY RADIOPAKO</span>
+            </div>
+            <div class="saved-indicator" id="savedIndicator">✓ SAVED!</div>
+        </div>
+    </div>
+
+    <script>
+        let currentWeekStart = getWeekStart(new Date());
+        let plannerData = {};
+        let editingCell = null;
+
+        const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+        const periods = ['MORNING', 'AFTERNOON'];
+        const periodIcons = { 
+            'MORNING': '☀️', 
+            'AFTERNOON': '🌙'
+        };
+
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            d.setDate(diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function getWeekDates() {
+            return days.map((_, index) => {
+                const date = new Date(currentWeekStart);
+                date.setDate(currentWeekStart.getDate() + index);
+                return date;
+            });
+        }
+
+        function getCellKey(dateKey, period) {
+            return `${dateKey}_${period}`;
+        }
+
+        function loadPlanner() {
+            const saved = localStorage.getItem('radio-week-planner');
+            if (saved) {
+                plannerData = JSON.parse(saved);
+            }
+        }
+
+        function savePlanner() {
+            localStorage.setItem('radio-week-planner', JSON.stringify(plannerData));
+            showSavedIndicator();
+        }
+
+        function showSavedIndicator() {
+            const indicator = document.getElementById('savedIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function updateCell(dateKey, period, value) {
+            const cellKey = getCellKey(dateKey, period);
+            plannerData[cellKey] = value;
+        }
+
+        function renderTable() {
+            const weekDates = getWeekDates();
+            const today = formatDate(new Date());
+
+            // Render header
+            const headerRow = document.getElementById('tableHeader');
+            headerRow.innerHTML = '<th class="period-cell">SHIFT</th>';
+            
+            weekDates.forEach((date, index) => {
+                const dateKey = formatDate(date);
+                const isToday = dateKey === today;
+                const th = document.createElement('th');
+                th.className = `day-header ${isToday ? 'today' : ''}`;
+                th.innerHTML = `
+                    <div class="day-name">${days[index]}</div>
+                    <div class="day-date">${date.getDate()}.${(date.getMonth() + 1).toString().padStart(2, '0')}</div>
+                `;
+                headerRow.appendChild(th);
+            });
+
+            // Render body
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            periods.forEach(period => {
+                const tr = document.createElement('tr');
+                
+                // Period cell
+                const periodCell = document.createElement('td');
+                periodCell.className = 'period-cell';
+                periodCell.innerHTML = `<span class="period-icon">${periodIcons[period]}</span>${period}`;
+                tr.appendChild(periodCell);
+
+                // Day cells
+                weekDates.forEach(date => {
+                    const dateKey = formatDate(date);
+                    const cellKey = getCellKey(dateKey, period);
+                    const cellValue = plannerData[cellKey] || '';
+                    const isToday = dateKey === today;
+
+                    const td = document.createElement('td');
+                    td.className = `cell-content ${isToday ? 'today' : ''}`;
+                    td.innerHTML = cellValue 
+                        ? `<div class="cell-text">${escapeHtml(cellValue)}</div>`
+                        : '<div class="placeholder">Click to tune in...</div>';
+                    
+                    td.onclick = () => editCell(td, dateKey, period, cellValue);
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+
+            updateWeekDisplay();
+        }
+
+        function editCell(td, dateKey, period, currentValue) {
+            if (editingCell) return;
+            editingCell = td;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = currentValue;
+            textarea.placeholder = 'Broadcasting tasks...';
+            
+            textarea.onblur = () => {
+                const newValue = textarea.value;
+                updateCell(dateKey, period, newValue);
+                savePlanner();
+                editingCell = null;
+                renderTable();
+            };
+
+            textarea.onkeydown = (e) => {
+                if (e.key === 'Escape') {
+                    textarea.blur();
+                }
+            };
+
+            td.innerHTML = '';
+            td.appendChild(textarea);
+            textarea.focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateWeekDisplay() {
+            const weekDates = getWeekDates();
+            const start = weekDates[0];
+            const end = weekDates[6];
+            
+            const display = `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase()} - ${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}`;
+            document.getElementById('weekDisplay').textContent = display;
+        }
+
+        function previousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            renderTable();
+        }
+
+        function nextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            renderTable();
+        }
+
+        function goToToday() {
+            currentWeekStart = getWeekStart(new Date());
+            renderTable();
+        }
+
+        // Initialize
+        loadPlanner();
+        renderTable();
+    </script>
+</body>
+</html>
